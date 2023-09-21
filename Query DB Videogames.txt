@@ -132,7 +132,7 @@ SELECT DISTINCT videogames.id, videogames.name, tournaments.year
 FROM videogames
 JOIN tournament_videogame ON videogames.id = tournament_videogame.videogame_id
 JOIN tournaments ON tournaments.id = tournament_videogame.tournament_id
-WHERE YEAR = 2016;
+WHERE tournaments.year = 2016;
 
 3- Mostrare le categorie di ogni videogioco (1718)
 
@@ -190,11 +190,11 @@ WHERE awards.name = 'gioco dell''anno' AND award_videogame.year = 2018;
 9- Selezionare i giocatori che hanno giocato al gioco più atteso del 2018 in un torneo del 2019 (3306)
 
 SELECT players.name AS player
-FROM tournaments
+FROM players
+JOIN player_tournament ON players.id = player_tournament.player_id
+JOIN tournaments ON tournaments.id = player_tournament.tournament_id
 JOIN tournament_videogame ON tournaments.id = tournament_videogame.tournament_id
 JOIN videogames ON videogames.id = tournament_videogame.videogame_id
-JOIN player_tournament ON tournaments.id = player_tournament.tournament_id
-JOIN players ON players.id = player_tournament.player_id
 JOIN award_videogame ON videogames.id = award_videogame.videogame_id
 JOIN awards ON awards.id = award_videogame.award_id
 WHERE awards.name = 'gioco più atteso' AND award_videogame.year = 2018 AND tournaments.year = 2019;
